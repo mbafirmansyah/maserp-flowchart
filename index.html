@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowchart Navigation</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+        h1 { margin-bottom: 30px; color: #333; }
+        .flowchart { position: relative; width: 500px; height: 550px; }
+        .node { position: absolute; background: #fff; border: 2px solid #333; padding: 15px 30px; text-align: center; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.2s; min-width: 140px; }
+        .node:hover { background: #4a90d9; color: #fff; border-color: #4a90d9; transform: scale(1.05); }
+        #so { top: 0; left: 50%; transform: translateX(-50%); }
+        #so:hover { transform: translateX(-50%) scale(1.05); }
+        #sj { top: 150px; left: 30%; transform: translateX(-50%); }
+        #sj:hover { transform: translateX(-50%) scale(1.05); }
+        #si { top: 400px; left: 25%; transform: translateX(-50%); }
+        #si:hover { transform: translateX(-50%) scale(1.05); }
+        #retur-sj { top: 280px; left: 75%; transform: translateX(-50%); }
+        #retur-sj:hover { transform: translateX(-50%) scale(1.05); }
+        .label { position: absolute; top: 250px; left: 58%; font-size: 14px; color: #666; }
+        svg.lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+        svg.lines line { stroke: #333; stroke-width: 2; }
+        svg.lines marker path { fill: #333; }
+        .page { display: none; width: 100%; max-width: 600px; background: #fff; border-radius: 8px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .page.active { display: block; }
+        .page h2 { margin-bottom: 15px; color: #4a90d9; }
+        .page p { color: #555; line-height: 1.6; margin-bottom: 15px; }
+        .btn-back { background: #4a90d9; color: #fff; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 14px; }
+        .btn-back:hover { background: #357abd; }
+    </style>
+</head>
+<body>
+    <h1>Flowchart Navigation</h1>
+
+    <!-- Flowchart View -->
+    <div class="flowchart" id="flowchart-view">
+        <svg class="lines">
+            <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#333"/></marker></defs>
+            <line x1="250" y1="45" x2="175" y2="150" marker-end="url(#arrow)"/>
+            <line x1="150" y1="195" x2="125" y2="400" marker-end="url(#arrow)"/>
+            <line x1="190" y1="195" x2="345" y2="280" marker-end="url(#arrow)"/>
+            <line x1="375" y1="325" x2="145" y2="400" marker-end="url(#arrow)"/>
+        </svg>
+        <span class="label">Coretan</span>
+        <div class="node" id="so" onclick="goTo('page-so')">SO</div>
+        <div class="node" id="sj" onclick="goTo('page-sj')">SJ</div>
+        <div class="node" id="si" onclick="goTo('page-si')">SI</div>
+        <div class="node" id="retur-sj" onclick="goTo('page-retur-sj')">Retur SJ</div>
+    </div>
+
+    <!-- Pages -->
+    <div class="page" id="page-so">
+        <h2>SO - Sales Order</h2>
+        <p>Halaman Sales Order (SO). Di sini Anda dapat membuat dan mengelola pesanan penjualan.</p>
+        <div style="margin: 20px 0; text-align: center;">
+            <div style="position: relative; display: inline-block; cursor: pointer;" onclick="openVideo()">
+                <img src="https://img.youtube.com/vi/BeV1R22QaTY/hqdefault.jpg" alt="Video SO" style="width: 100%; max-width: 480px; border-radius: 8px;" />
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(255,0,0,0.85); width: 60px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 0; height: 0; border-left: 18px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px;"></div>
+                </div>
+            </div>
+            <p style="margin-top: 8px; font-size: 13px; color: #888;">Klik untuk memutar video</p>
+        </div>
+        <!-- Video Modal -->
+        <div id="video-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; align-items:center; justify-content:center;">
+            <div style="position:relative; width:90%; max-width:800px;">
+                <button onclick="closeVideo()" style="position:absolute; top:-35px; right:0; background:none; border:none; color:#fff; font-size:28px; cursor:pointer;">✕</button>
+                <iframe id="video-frame" width="100%" height="450" src="" frameborder="0" style="border-radius:8px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+        <p><strong>Alur selanjutnya:</strong> SO → SJ (Surat Jalan)</p>
+        <button class="btn-back" onclick="goBack()">← Kembali ke Flowchart</button>
+    </div>
+    <div class="page" id="page-sj">
+        <h2>SJ - Surat Jalan</h2>
+        <p>Halaman Surat Jalan (SJ). Di sini Anda dapat membuat surat jalan untuk pengiriman barang.</p>
+        <div style="margin: 20px 0; text-align: center;">
+            <div style="position: relative; display: inline-block; cursor: pointer;" onclick="openVideoSJ()">
+                <img src="https://img.youtube.com/vi/RZ1TW2dC2DM/hqdefault.jpg" alt="Video SJ" style="width: 100%; max-width: 480px; border-radius: 8px;" />
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(255,0,0,0.85); width: 60px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 0; height: 0; border-left: 18px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px;"></div>
+                </div>
+            </div>
+            <p style="margin-top: 8px; font-size: 13px; color: #888;">Klik untuk memutar video</p>
+        </div>
+        <p><strong>Alur selanjutnya:</strong> SJ → SI (Sales Invoice) atau SJ → Retur SJ (jika ada coretan)</p>
+        <button class="btn-back" onclick="goBack()">← Kembali ke Flowchart</button>
+    </div>
+    <div class="page" id="page-si">
+        <h2>SI - Sales Invoice</h2>
+        <p>Halaman Sales Invoice (SI). Di sini Anda dapat membuat faktur penjualan berdasarkan surat jalan.</p>
+        <div style="margin: 20px 0; text-align: center;">
+            <div style="position: relative; display: inline-block; cursor: pointer;" onclick="openVideoSI()">
+                <img src="https://img.youtube.com/vi/D0sDdcnJOsE/hqdefault.jpg" alt="Video SI" style="width: 100%; max-width: 480px; border-radius: 8px;" />
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(255,0,0,0.85); width: 60px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 0; height: 0; border-left: 18px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px;"></div>
+                </div>
+            </div>
+            <p style="margin-top: 8px; font-size: 13px; color: #888;">Klik untuk memutar video</p>
+        </div>
+        <button class="btn-back" onclick="goBack()">← Kembali ke Flowchart</button>
+    </div>
+    <div class="page" id="page-retur-sj">
+        <h2>Retur SJ - Retur Surat Jalan</h2>
+        <p>Halaman Retur Surat Jalan. Digunakan ketika ada barang yang diretur/dikembalikan (coretan pada SJ).</p>
+        <div style="margin: 20px 0; text-align: center;">
+            <div style="position: relative; display: inline-block; cursor: pointer;" onclick="openVideoReturSJ()">
+                <img src="https://img.youtube.com/vi/VKg7gyk-sWI/hqdefault.jpg" alt="Video Retur SJ" style="width: 100%; max-width: 480px; border-radius: 8px;" />
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); background: rgba(255,0,0,0.85); width: 60px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 0; height: 0; border-left: 18px solid #fff; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 4px;"></div>
+                </div>
+            </div>
+            <p style="margin-top: 8px; font-size: 13px; color: #888;">Klik untuk memutar video</p>
+        </div>
+        <p><strong>Alur selanjutnya:</strong> Retur SJ → SI</p>
+        <button class="btn-back" onclick="goBack()">← Kembali ke Flowchart</button>
+    </div>
+
+    <script>
+        function goTo(pageId) {
+            document.getElementById('flowchart-view').style.display = 'none';
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+        function goBack() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('flowchart-view').style.display = 'block';
+        }
+        function openVideo() {
+            var modal = document.getElementById('video-modal');
+            modal.style.display = 'flex';
+            document.getElementById('video-frame').src = 'https://www.youtube.com/embed/BeV1R22QaTY?autoplay=1';
+        }
+        function closeVideo() {
+            var modal = document.getElementById('video-modal');
+            modal.style.display = 'none';
+            document.getElementById('video-frame').src = '';
+        }
+        function openVideoSJ() {
+            var modal = document.getElementById('video-modal');
+            modal.style.display = 'flex';
+            document.getElementById('video-frame').src = 'https://www.youtube.com/embed/RZ1TW2dC2DM?autoplay=1';
+        }
+        function openVideoSI() {
+            var modal = document.getElementById('video-modal');
+            modal.style.display = 'flex';
+            document.getElementById('video-frame').src = 'https://www.youtube.com/embed/D0sDdcnJOsE?autoplay=1';
+        }
+        function openVideoReturSJ() {
+            var modal = document.getElementById('video-modal');
+            modal.style.display = 'flex';
+            document.getElementById('video-frame').src = 'https://www.youtube.com/embed/VKg7gyk-sWI?autoplay=1';
+        }
+    </script>
+</body>
+</html>

@@ -19,6 +19,12 @@
         #si:hover { transform: translateX(-50%) scale(1.05); }
         #retur-sj { top: 280px; left: 75%; transform: translateX(-50%); }
         #retur-sj:hover { transform: translateX(-50%) scale(1.05); }
+        
+        /* Tambahan CSS untuk Mengambil data SAS */
+        #sas { top: 35px; left: 82%; transform: translateX(-50%); font-size: 16px; padding: 10px 15px; }
+        #sas:hover { transform: translateX(-50%) scale(1.05); }
+        .label-opsional { position: absolute; top: 10px; left: 82%; transform: translateX(-50%); font-size: 14px; font-weight: bold; color: #333; }
+        
         .label { position: absolute; top: 250px; left: 58%; font-size: 14px; color: #666; }
         svg.lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
         svg.lines line { stroke: #333; stroke-width: 2; }
@@ -42,13 +48,16 @@
             <line x1="375" y1="325" x2="145" y2="400" marker-end="url(#arrow)"/>
         </svg>
         <span class="label">Coretan</span>
+        
+        <span class="label-opsional">Opsional</span>
+        <div class="node" id="sas" onclick="openVideo('Mengambil data SAS', 'frVbRyxhdQc')">mengambil data SAS</div>
+        
         <div class="node" id="so" onclick="openVideo('SO - Sales Order', 'BeV1R22QaTY')">SO</div>
         <div class="node" id="sj" onclick="openVideo('SJ - Surat Jalan', 'ixR2C48BGFs')">SJ</div>
         <div class="node" id="si" onclick="openVideo('SI - Sales Invoice', '5YtySgVz3ec')">SI</div>
         <div class="node" id="retur-sj" onclick="openVideo('Retur SJ - Retur Surat Jalan', 'VKg7gyk-sWI')">Retur SJ</div>
     </div>
 
-    <!-- Single Modal for all videos -->
     <div class="modal-overlay" id="video-modal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeVideo()">✕</button>

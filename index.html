@@ -8,24 +8,34 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Arial, sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
         h1 { margin-bottom: 30px; color: #333; }
-        .flowchart { position: relative; width: 500px; height: 550px; }
+        .flowchart { position: relative; width: 500px; height: 770px; } /* Tinggi disesuaikan dari 550px ke 770px untuk menampung pergeseran 40% */
         .node { position: absolute; background: #fff; border: 2px solid #333; padding: 15px 30px; text-align: center; font-size: 18px; font-weight: bold; cursor: pointer; transition: all 0.2s; min-width: 140px; }
         .node:hover { background: #4a90d9; color: #fff; border-color: #4a90d9; transform: scale(1.05); }
-        #so { top: 0; left: 50%; transform: translateX(-50%); }
+        
+        /* Barisan flowchart utama diturunkan 40% (+220px) */
+        #so { top: 220px; left: 50%; transform: translateX(-50%); }
         #so:hover { transform: translateX(-50%) scale(1.05); }
-        #sj { top: 150px; left: 30%; transform: translateX(-50%); }
+        #sj { top: 370px; left: 30%; transform: translateX(-50%); }
         #sj:hover { transform: translateX(-50%) scale(1.05); }
-        #si { top: 400px; left: 25%; transform: translateX(-50%); }
+        #si { top: 620px; left: 25%; transform: translateX(-50%); }
         #si:hover { transform: translateX(-50%) scale(1.05); }
-        #retur-sj { top: 280px; left: 75%; transform: translateX(-50%); }
+        #retur-sj { top: 500px; left: 75%; transform: translateX(-50%); }
         #retur-sj:hover { transform: translateX(-50%) scale(1.05); }
+        .label { position: absolute; top: 470px; left: 58%; font-size: 14px; color: #666; }
         
-        /* Tambahan CSS untuk Mengambil data SAS */
-        #sas { top: 35px; left: 82%; transform: translateX(-50%); font-size: 16px; padding: 10px 15px; }
+        /* Tambahan CSS untuk Mengambil data SAS (tetap) */
+        #sas { top: 35px; left: 112%; transform: translateX(-50%); font-size: 16px; padding: 10px 15px; }
         #sas:hover { transform: translateX(-50%) scale(1.05); }
-        .label-opsional { position: absolute; top: 10px; left: 82%; transform: translateX(-50%); font-size: 14px; font-weight: bold; color: #333; }
+        .label-opsional { position: absolute; top: 10px; left: 112%; transform: translateX(-50%); font-size: 14px; font-weight: bold; color: #333; }
         
-        .label { position: absolute; top: 250px; left: 58%; font-size: 14px; color: #666; }
+        /* Tambahan CSS untuk Download & Memakai Konverter SAS (tetap) */
+        #sas-converter { top: 100px; left: 112%; transform: translateX(-50%); font-size: 14px; padding: 10px 15px; width: 220px; }
+        #sas-converter:hover { transform: translateX(-50%) scale(1.05); }
+        
+        /* Tambahan CSS untuk Membuat SO menggunakan Konverter SAS (tetap) */
+        #sas-so { top: 165px; left: 112%; transform: translateX(-50%); font-size: 14px; padding: 10px 15px; width: 220px; }
+        #sas-so:hover { transform: translateX(-50%) scale(1.05); }
+        
         svg.lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
         svg.lines line { stroke: #333; stroke-width: 2; }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; }
@@ -40,17 +50,21 @@
     <h1>Flowchart Modul Penjualan MASERP</h1>
 
     <div class="flowchart">
-        <svg class="lines">
+        <svg class="lines" overflow="visible">
             <defs><marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#333"/></marker></defs>
-            <line x1="250" y1="45" x2="175" y2="150" marker-end="url(#arrow)"/>
-            <line x1="150" y1="195" x2="125" y2="400" marker-end="url(#arrow)"/>
-            <line x1="190" y1="195" x2="345" y2="280" marker-end="url(#arrow)"/>
-            <line x1="375" y1="325" x2="145" y2="400" marker-end="url(#arrow)"/>
+            <line x1="250" y1="265" x2="175" y2="370" marker-end="url(#arrow)"/>
+            <line x1="150" y1="415" x2="125" y2="620" marker-end="url(#arrow)"/>
+            <line x1="190" y1="415" x2="345" y2="500" marker-end="url(#arrow)"/>
+            <line x1="375" y1="545" x2="145" y2="620" marker-end="url(#arrow)"/>
+            
+            <line x1="560" y1="220" x2="220" y2="370" marker-end="url(#arrow)"/>
         </svg>
         <span class="label">Coretan</span>
         
         <span class="label-opsional">Opsional</span>
-        <div class="node" id="sas" onclick="openVideo('Mengambil data SAS', 'frVbRyxhdQc')">mengambil data SAS</div>
+        <div class="node" id="sas" onclick="openVideo('1. Mengambil data SAS', 'frVbRyxhdQc')">1. Mengambil data SAS</div>
+        <div class="node" id="sas-converter" onclick="openVideo('2. Download Dan Memakai Konverter SAS', 'YB_JMBWfP6s')">2. Download Dan Memakai Konverter SAS</div>
+        <div class="node" id="sas-so" onclick="openVideo('3. Membuat SO menggunakan Konverter SAS', 'mXMXwlJqO3g')">3. Membuat SO menggunakan Konverter SAS</div>
         
         <div class="node" id="so" onclick="openVideo('SO - Sales Order', 'BeV1R22QaTY')">SO</div>
         <div class="node" id="sj" onclick="openVideo('SJ - Surat Jalan', 'ixR2C48BGFs')">SJ</div>
@@ -82,6 +96,6 @@
         });
     </script>
 
-    <a href="https://drive.google.com/uc?export=download&id=1ZEZKvXshnW3H4OaOp6IJY-ldYjT6yZJN" style="margin-top: 40px; color: #4a90d9; text-decoration: underline; font-weight: bold; font-size: 16px;"> Download Konverter SAS</a>
+    <a href="https://drive.google.com/uc?export=download&id=1ZEZKvXshnW3H4OaOp6IJY-ldYjT6yZJN" style="margin-top: 40px; color: #4a90d9; text-decoration: underline; font-weight: bold; font-size: 16px;">Download Konverter SAS</a>
 </body>
 </html>

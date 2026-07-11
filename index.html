@@ -36,6 +36,10 @@
         #sas-so { top: 165px; left: 112%; transform: translateX(-50%); font-size: 14px; padding: 10px 15px; width: 220px; }
         #sas-so:hover { transform: translateX(-50%) scale(1.05); }
         
+        /* Tambahan CSS untuk Tombol Download Konverter SAS di sebelah kiri */
+        #download-btn { position: absolute; top: 100px; left: -20%; transform: translateX(-50%); background: #28a745; color: #fff; padding: 15px 30px; border: 2px solid #1e7e34; border-radius: 8px; text-decoration: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s; text-align: center; min-width: 200px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #download-btn:hover { background: #218838; transform: translateX(-50%) scale(1.05); }
+        
         svg.lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
         svg.lines line { stroke: #333; stroke-width: 2; }
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; align-items: center; justify-content: center; }
@@ -60,6 +64,8 @@
             <line x1="560" y1="220" x2="220" y2="370" marker-end="url(#arrow)"/>
         </svg>
         <span class="label">Coretan</span>
+        
+        <a href="https://drive.google.com/uc?export=download&id=1ZEZKvXshnW3H4OaOp6IJY-ldYjT6yZJN" id="download-btn">Download Konverter SAS</a>
         
         <span class="label-opsional">Opsional</span>
         <div class="node" id="sas" onclick="openVideo('1. Mengambil data SAS', 'frVbRyxhdQc')">1. Mengambil data SAS</div>
@@ -95,7 +101,5 @@
             if (e.target === this) closeVideo();
         });
     </script>
-
-    <a href="https://drive.google.com/uc?export=download&id=1ZEZKvXshnW3H4OaOp6IJY-ldYjT6yZJN" style="margin-top: 40px; color: #4a90d9; text-decoration: underline; font-weight: bold; font-size: 16px;">Download Konverter SAS</a>
 </body>
 </html>
